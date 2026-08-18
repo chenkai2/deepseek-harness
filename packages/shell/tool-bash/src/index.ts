@@ -381,11 +381,6 @@ export function apply(ctx: Context, config: Config = {}): void {
         ...request,
         signal: exec.signal,
       }))
-      if (result.aborted) {
-        const error = new HarnessError('tool call aborted', TOOL_ABORTED)
-        error.name = 'AbortError'
-        throw error
-      }
       return { kind: 'foreground' as const, ...canonicalBashResult(result) }
     },
     presentCall: presentBashCall,

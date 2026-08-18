@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-08-18-tool-bash-foreground-abort-natural-pipeline.md
+2026-08-18-tool-bash-foreground-abort-natural-pipeline.md: 89352b6c336cd06eacfd2b2e819b2830c5df0aeb
+2026-08-18-tool-bash-foreground-abort-natural-pipeline.zh.md: 45d74a9f7952d04fd7c9d23b9ff4a7ce4fbbedf7
