@@ -43,6 +43,8 @@ type Ptr = ReturnType<typeof koffi.pointer>
 export interface StartupInfoInput {
   cb: number
   dwFlags: number
+  /** SW_* value honored when STARTF_USESHOWWINDOW is set in dwFlags. */
+  wShowWindow?: number
   hStdInput: NativePtr
   hStdOutput: NativePtr
   hStdError: NativePtr

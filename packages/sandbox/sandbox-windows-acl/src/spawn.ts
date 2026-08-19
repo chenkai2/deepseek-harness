@@ -113,7 +113,12 @@ export function spawnSandboxed(
   const startupInfo = allocStartupInfo()
   encodeStartupInfo(startupInfo, {
     cb: abi.STARTUPINFOW_SIZE,
-    dwFlags: abi.STARTF_USESTDHANDLES,
+    // USESHOWWINDOW + wShowWindow=0 (SW_HIDE): start the console child with
+    // its window hidden instead of flashing a new console per spawn.
+    // CREATE_NO_WINDOW is deliberately not used — it kills restricted-token
+    // children with 0xC0000142 (discussion #1344).
+    dwFlags: abi.STARTF_USESTDHANDLES | abi.STARTF_USESHOWWINDOW,
+    wShowWindow: 0,
     hStdInput: stdIn.read,
     hStdOutput: stdOut.write,
     hStdError: stdErr.write,
@@ -297,7 +302,10 @@ export function spawnSandboxedInherited(
   const startupInfo = allocStartupInfo()
   encodeStartupInfo(startupInfo, {
     cb: abi.STARTUPINFOW_SIZE,
-    dwFlags: abi.STARTF_USESTDHANDLES,
+    // Same as the main spawn: USESHOWWINDOW + SW_HIDE to avoid flashing a
+    // console window; CREATE_NO_WINDOW would crash the confined child.
+    dwFlags: abi.STARTF_USESTDHANDLES | abi.STARTF_USESHOWWINDOW,
+    wShowWindow: 0,
     hStdInput: stdIn,
     hStdOutput: stdOut,
     hStdError: stdErr,
